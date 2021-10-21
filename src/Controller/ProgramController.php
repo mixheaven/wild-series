@@ -22,7 +22,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @Routre("/{movie<[a-z0-9.-]*>}, name="program_show", methods="{GET}")
+     * @Route("/{movie<[a-z0-9.-]*>}", name="program_show", methods={"GET"})
      */
     public function show(string $movie)
     {   
@@ -35,7 +35,7 @@ class ProgramController extends AbstractController
             $movieShow = 'Ce programme n\' exite pas, veuillez selectionner un programme existant';
         }
         return $this->render('program/show.html.twig',[
-            'movieShow' => $movieShow,
+            'movieShow' => $movieShow
         ]);
         
 
