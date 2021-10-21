@@ -17,4 +17,5 @@ class DefaultController extends AbstractController
             'welcome' => 'Bienvenue !',
         ]);
     }
+    
 }

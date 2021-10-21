@@ -1,0 +1,12 @@
+
+$theme-colors: (
+    "main": #0074d9,
+    "secondary": #ff4136
+);
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
+
+body {
+background-color: white;
+}
