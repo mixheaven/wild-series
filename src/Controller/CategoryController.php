@@ -38,16 +38,10 @@ class CategoryController extends AbstractController
     {
         $category = new Category();
 
-        if($category->getName() === $category)
-        {
-            throw new ClassAlreadyExistsException($category . 'Cette category exste déja');
-        }
-        
-        else
-        {
+    
             
-            $form = $this->createForm(CategoryType::class, $category);
-        }
+        $form = $this->createForm(CategoryType::class, $category);
+        
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
@@ -91,5 +85,18 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/{categoryName}", name="delete", methods={"POST"})
+     */
+    public function delete(Request $request, $categoryName): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$categoryName->getName(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($categoryName);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('category_index', [], Response::HTTP_SEE_OTHER);
+    }
     
 }
