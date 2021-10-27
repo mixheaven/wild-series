@@ -62,7 +62,7 @@ class ProgramController extends AbstractController
     /**
      * Getting a program by id
      *
-     * @Route("/show/{id<^[0-9]+$>}", name="show")
+     * @Route("/show/{id<^[0-9]>}", name="show")
      * @return Response
      */
     public function show(int $id):Response
@@ -143,37 +143,5 @@ class ProgramController extends AbstractController
             'season' => $season,
             'episode' => $episode,
           ]);
-    }
-    /**
-     * @Route("/{id}/edit", name="program_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Program $program): Response
-    {
-        $form = $this->createForm(ProgramType::class, $program);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('program_index');
         }
-
-        return $this->render('program/edit.html.twig', [
-            'program' => $program,
-            'form' => $form->createView(),
-        ]);
-}
-   /**
-     * @Route("/{id}", name="program_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Program $program): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($program);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('program_index');
     }
-}
